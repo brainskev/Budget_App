@@ -1,0 +1,35 @@
+<div class="category-header">
+  <i class="fa-solid fa-bars"></i>
+  <h2>My Categories</h2>
+  <a href="/logout">
+    <i class="fa-solid fa-right-from-bracket"></i>
+  </a>
+</div>
+
+<div class="categories-container">
+  <% if @categories.empty? %>
+    <p class="no-data">You have no categories yet.</p>
+  <% else %>
+    <% @categories.each do |category| %>
+       <div class="category">
+        <a class="category-link" href="<%= category_payments_path(category.id) %>">
+          <img src="<%= category.icon %>" alt="icon" class="category-icon" />
+           <p class="cname"><%= category.name %></p>
+           <p class="ctotal">Total: $ <%= category.total_transaction_amount %> </p>
+           <div class="category-actions">
+           <%= button_to category_path(category), method: :delete, data: { confirm: 'Are you sure you want to delete this category?' }, class: "delete-category-link", style: "background: transparent; border: none; padding: 0;" do %>
+            <i class="fa-solid fa-trash shiny-delete-icon"></i>
+        <% end %>
+        </div>
+        </a>
+        </div>
+      <% end %>
+    <% end %>
+
+  <a href="/categories/new" class="add-category-link">
+    <div class="add-category">
+      <i class="fa-solid fa-plus"></i>
+      <p class="button-name">Add Category</p>
+    </div>
+  </a>
+</div>

@@ -1,19 +1,13 @@
 Rails.application.routes.draw do
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  # Defines the root path route ("/")
+  resources :categories do
+    resources :payments
+  end
   devise_for :users
-  resources :splash, only: [:index]
-
-  resources :groups, only: [:index, :new, :create] do
-    resources :transacs, only: [:index]
-  end
-
-  resources :transacs, only: [:new, :create]
-
   devise_scope :user do
-    authenticated :user do
-      root "groups#index", as: :authenticated_root
-    end
-    unauthenticated :user do
-      root "splash#index", as: :unauthenticated_root
-    end
+    get '/logout', to: 'devise/sessions#destroy'
   end
+  root to: 'user#index'
 end

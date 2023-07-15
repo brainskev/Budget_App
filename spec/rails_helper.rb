@@ -2,9 +2,11 @@
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
+
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -53,7 +55,7 @@ RSpec.configure do |config|
   #     end
   #
   # The different available types are documented in the features, such as in
-  # https://relishapp.com/rspec/rspec-rails/docs
+  # https://rspec.info/features/6-0/rspec-rails
   config.infer_spec_type_from_file_location!
 
   # Filter lines from Rails gems in backtraces.

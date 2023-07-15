@@ -10,57 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_25_170858) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_13_081136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "group_transacs", force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.bigint "transac_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_group_transacs_on_group_id"
-    t.index ["transac_id"], name: "index_group_transacs_on_transac_id"
-  end
-
-  create_table "groups", force: :cascade do |t|
-    t.string "name"
-    t.string "icon"
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "icon"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_groups_on_user_id"
+    t.bigint "payment_id"
+    t.index ["payment_id"], name: "index_categories_on_payment_id"
+    t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
-  create_table "transacs", force: :cascade do |t|
+  create_table "payments", force: :cascade do |t|
     t.string "name"
     t.decimal "amount"
-    t.bigint "author_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["author_id"], name: "index_transacs_on_author_id"
+    t.index ["category_id"], name: "index_payments_on_category_id"
+    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "group_transacs", "groups"
-  add_foreign_key "group_transacs", "transacs"
-  add_foreign_key "groups", "users"
-  add_foreign_key "transacs", "users", column: "author_id"
+  add_foreign_key "categories", "payments"
+  add_foreign_key "categories", "users"
+  add_foreign_key "payments", "categories"
+  add_foreign_key "payments", "users"
 end
