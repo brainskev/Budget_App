@@ -57,7 +57,7 @@
 ## Live Demo
 
 - [Live Demo Link](https://cash-buddy.onrender.com/)
-- [Video Link]()
+- [Video Link](https://www.loom.com/share/567d593b750d45b58e0807f8e393df0e?sid=b0e0ea5a-4e66-46b7-a97e-9667f56c928b)
 
 ## Getting Started
 
